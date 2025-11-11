@@ -1,3 +1,89 @@
+SET NAMES utf8mb4;   -- クライアント側も UTF‑8 に統一
+
+CREATE DATABASE IF NOT EXISTS my_database
+    CHARACTER SET utf8mb4
+    COLLATE utf8mb4_unicode_ci;
+
+USE my_database;
+
+-- users テーブル
+CREATE TABLE users (
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    birthdate DATE
+);
+
+-- login_histories テーブル
+CREATE TABLE login_histories (
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    user_id INT UNSIGNED NOT NULL,
+    -- DATETIME型を使用し、デフォルト値として現在時刻を設定
+    login_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+    
+);
+
+INSERT INTO users (name, email, birthdate) VALUES
+('佐藤 健太', 'kenta.sato@example.com', '1990-04-15'),
+('田中 綾子', 'ayako.tanaka@example.com', '1985-11-23'),
+('山本 大地', 'daichi.yamamoto@example.com', '1998-07-01'),
+('中村 美咲', 'misaki.nakamura@example.com', '1993-02-28'),
+('小林 拓海', 'takumi.kobayashi@example.com', '2000-09-10'),
+('加藤 陽菜', 'hina.kato@example.com', '1995-05-05'),
+('吉田 悠真', 'yuma.yoshida@example.com', '1988-12-19'),
+('山田 結衣', 'yui.yamada@example.com', '1996-03-03'),
+('佐々木 翔太', 'shota.sasaki@example.com', '1991-08-14'),
+('高橋 葵', 'aoi.takahashi@example.com', '2001-01-20'),
+('伊藤 隆', 'takashi.ito@example.com', '1982-06-25'),
+('鈴木 里奈', 'rina.suzuki@example.com', '1999-10-17'),
+('渡辺 誠', 'makoto.watanabe@example.com', '1975-04-02'),
+('斎藤 梨花', 'rika.saito@example.com', '1994-11-11'),
+('松本 悟', 'satoru.matsumoto@example.com', '1987-07-29'),
+('井上 沙織', 'saori.inoue@example.com', '2003-01-05'),
+('木村 隼人', 'hayato.kimura@example.com', '1992-06-30'),
+('林 咲良', 'sakura.hayashi@example.com', '1989-03-12'),
+('清水 健二', 'kenji.shimizu@example.com', '1979-10-08'),
+('阿部 詩', 'uta.abe@example.com', '2002-05-27'),
+('森 浩司', 'koji.mori@example.com', '1980-12-07'),
+('石川 華', 'hana.ishikawa@example.com', '1997-09-21'),
+('橋本 蓮', 'ren.hashimoto@example.com', '1993-02-18'),
+('池田 莉子', 'riko.ikeda@example.com', '2004-04-09'),
+('岡田 亮介', 'ryosuke.okada@example.com', '1984-07-16'),
+('藤田 真由', 'mayu.fujita@example.com', '1990-12-24'),
+('小野 哲也', 'tetsuya.ono@example.com', '1978-05-13'),
+('宮崎 遥', 'haruka.miyazaki@example.com', '1995-10-31'),
+('原田 渉', 'wataru.harada@example.com', '2001-03-06'),
+('西村 萌', 'moe.nishimura@example.com', '1986-08-22'),
+('竹内 雄一', 'yuichi.takeuchi@example.com', '1970-01-01'),
+('中島 恵', 'megumi.nakajima@example.com', '1998-05-17'),
+('三浦 誠也', 'seiya.miura@example.com', '1994-06-29'),
+('大西 玲奈', 'rena.onishi@example.com', '1983-11-09'),
+('福田 裕介', 'yusuke.fukuda@example.com', '1996-12-04'),
+('村上 杏奈', 'anna.murakami@example.com', '1999-02-15'),
+('横山 拓也', 'takuya.yokoyama@example.com', '1981-09-27'),
+('太田 理恵', 'rie.ota@example.com', '2000-08-05'),
+('平野 圭', 'kei.hirano@example.com', '1977-03-26'),
+('川上 紗季', 'saki.kawakami@example.com', '1992-04-18'),
+('野村 剛', 'tsuyoshi.nomura@example.com', '1985-01-24'),
+('石田 梓', 'azusa.ishida@example.com', '2002-10-12'),
+('岩崎 達也', 'tatsuya.iwasaki@example.com', '1974-12-21'),
+('上野 愛', 'ai.ueno@example.com', '1997-06-08'),
+('小川 裕太', 'yuta.ogawa@example.com', '1989-05-20'),
+('辻本 奈緒', 'nao.tsujimoto@example.com', '1995-09-02'),
+('久保 雅人', 'masato.kubo@example.com', '1986-04-07'),
+('坂本 琴音', 'kotone.sakamoto@example.com', '2001-11-26'),
+('柴田 聡', 'satoshi.shibata@example.com', '1976-02-14'),
+('田村 恵美', 'emi.tamura@example.com', '1993-07-23'),
+('中川 隼', 'jun.nakagawa@example.com', '1988-10-30'),
+('長谷川 遥香', 'haruka.hasegawa@example.com', '1990-03-08'),
+('浜田 陸', 'riku.hamada@example.com', '1983-08-11'),
+('堀内 茜', 'akane.horiuchi@example.com', '1996-01-06'),
+('前田 渉', 'wataru.maeda@example.com', '2003-05-29'),
+('町田 和樹', 'kazuki.machida@example.com', '1979-11-18'),
+('水野 詩織', 'shiori.mizuno@example.com', '1991-04-25'),
+('山崎 健吾', 'kengo.yamazaki@example.com', '1980-06-16'),
+('吉岡 紗英', 'sae.yoshioka@example.com', '1994-09-13');
+
 INSERT INTO login_histories (user_id, login_date) VALUES
 (15, '2025-08-01 10:20:15'),
 (3, '2025-11-09 15:05:40'),

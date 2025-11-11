@@ -13,7 +13,10 @@ services:
       - "3308:3306" # ホストの3308ポートをコンテナの3306ポートにマッピング
     volumes:
       # データの永続化設定: 名前付きボリュームをマウント
-      - mysql_mcp_data:/var/lib/mysql
+      # 今回は永続化しない
+      # - mysql_mcp_data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql:ro  # ← ここをマウント
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
 
 # ボリュームの定義
 volumes:
