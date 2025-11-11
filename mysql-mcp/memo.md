@@ -11,7 +11,6 @@
 - init.sql
   - 初期データ
 
-
 ## mariadb公式のMCP
 
 https://github.com/MariaDB/mcp
