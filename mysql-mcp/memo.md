@@ -3,15 +3,13 @@
 
 ## 対象DB
 - dockerを使ってローカルに3308で露出。
+- docker compose up
+  - 自動的に初期データ投入されます
 
 ### files
 - compose.yml
-- ddl.sql
-  - DBスキーマ
-- users.sql
-  - ユーザーデータ初期データ
-- histories.sql
-  - ログイン履歴初期データ
+- init.sql
+  - 初期データ
 
 
 ## mariadb公式のMCP
