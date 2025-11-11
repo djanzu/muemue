@@ -1,0 +1,20 @@
+
+services:
+  # MySQLサービスの定義
+  db:
+    image: mysql:8.0
+    container_name: mysql_db
+    # restart: always # コンテナが終了した場合に自動的に再起動
+    environment:
+      # 環境変数で初期設定を行う
+      MYSQL_ROOT_PASSWORD: my-secret-password # 🚨 本番環境ではより強力なパスワードを設定してください
+      MYSQL_DATABASE: my_database # 初期データベース名
+    ports:
+      - "3308:3306" # ホストの3308ポートをコンテナの3306ポートにマッピング
+    volumes:
+      # データの永続化設定: 名前付きボリュームをマウント
+      - mysql_mcp_data:/var/lib/mysql
+
+# ボリュームの定義
+volumes:
+  mysql_mcp_data: # <- この名前付きボリュームがデータを保持します
