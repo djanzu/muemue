@@ -13,6 +13,13 @@
 - RAGを活用してセキュリティチェックシートの記入作業を自動化した話
   - https://zenn.dev/delisit/articles/0b4977d79500fa
 
+## スキル
+- 書いたコードを“スキル化”して再利用してる話
+  - https://zenn.dev/explaza/articles/9f3271d1a9ce70
+
+- Claude Skills (Agent Skills) 入門
+  - https://zenn.dev/explaza/articles/b3dde4451aa249
+
 
 ## MCP
 
