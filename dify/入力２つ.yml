@@ -1,0 +1,256 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: workflow
+  name: 入力２つ
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/ollama:0.1.1@f3a8b649027d1bd13e67df96f3463a601c16628da4292705528d28d97d96b263
+    version: null
+kind: app
+version: 0.5.0
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        attachment_image_file_size_limit: 2
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        file_upload_limit: 20
+        image_file_batch_limit: 10
+        image_file_size_limit: 10
+        single_chunk_attachment_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: start
+        targetType: llm
+      id: 1770207865401-source-1770207910360-target
+      source: '1770207865401'
+      sourceHandle: source
+      target: '1770207910360'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: end
+      id: 1770207910360-source-1770207992375-target
+      source: '1770207910360'
+      sourceHandle: source
+      target: '1770207992375'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: http-request
+      id: 1770207910360-source-1770210165551-target
+      source: '1770207910360'
+      sourceHandle: source
+      target: '1770210165551'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        selected: false
+        title: ユーザー入力
+        type: start
+        variables:
+        - default: ''
+          hint: ''
+          label: kaiwa
+          max_length: 1024
+          options: []
+          placeholder: ''
+          required: true
+          type: paragraph
+          variable: kaiwa
+        - default: ''
+          hint: ''
+          label: prompt
+          max_length: 256
+          options: []
+          placeholder: ''
+          required: true
+          type: text-input
+          variable: prompt
+      height: 135
+      id: '1770207865401'
+      position:
+        x: 80
+        y: 282
+      positionAbsolute:
+        x: 80
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: gemma3:4b
+          provider: langgenius/ollama/ollama
+        prompt_template:
+        - id: e3a1d6d6-a480-4547-bc90-2c1566896a3a
+          role: system
+          text: '# 入力された会話
+
+            {{#1770207865401.kaiwa#}}
+
+
+            # プロンプト
+
+            {{#1770207865401.prompt#}}
+
+
+            ---
+
+            入力された会話をプロンプトの支持に従い、加工してください。'
+        selected: false
+        title: LLM
+        type: llm
+        vision:
+          enabled: false
+      height: 88
+      id: '1770207910360'
+      position:
+        x: 382
+        y: 282
+      positionAbsolute:
+        x: 382
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        outputs:
+        - value_selector:
+          - '1770207910360'
+          - text
+          value_type: string
+          variable: text
+        selected: false
+        title: 出力
+        type: end
+      height: 88
+      id: '1770207992375'
+      position:
+        x: 684
+        y: 282
+      positionAbsolute:
+        x: 684
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - id: key-value-164
+            key: ''
+            type: text
+            value: "{\n    \"name\": \"text\",\n    \"text\": \"{{#1770207910360.text#}}\"\
+              ,\n    \"indexing_technique\": \"high_quality\",\n    \"process_rule\"\
+              : {\n        \"mode\": \"automatic\"\n    }\n}"
+          type: json
+        desc: Knowledgeに保存
+        headers: Authorization:Bearer dataset-API-TOKEN
+        method: post
+        params: ''
+        retry_config:
+          max_retries: 1
+          retry_enabled: false
+          retry_interval: 100
+        selected: true
+        ssl_verify: false
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: HTTP リクエスト
+        type: http-request
+        url: http://host.docker.internal/v1/datasets/DATASET_UUID/document/create_by_text
+        variables: []
+      height: 168
+      id: '1770210165551'
+      position:
+        x: 684
+        y: 409
+      positionAbsolute:
+        x: 684
+        y: 409
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    viewport:
+      x: -141
+      y: -52
+      zoom: 1
+  rag_pipeline_variables: []
